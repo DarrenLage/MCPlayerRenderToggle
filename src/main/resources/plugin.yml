@@ -1,0 +1,6 @@
+name: PlayerRenderToggle
+version: '${project.version}'
+main: dev.draco.playerrendertoggle.PlayerRenderToggle
+api-version: 1.19
+authors: [ Dracobro ]
+description: Designed to allow the player to toggle between rendering other player's models
