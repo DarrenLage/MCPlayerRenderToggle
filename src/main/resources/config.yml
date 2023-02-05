@@ -1,1 +1,13 @@
 itemIndex: 8
+HidePlayers:
+  ItemMaterial: "RED_DYE"
+  ItemName: "Disable Player Rendering"
+  Lore1: "Clicking this item"
+  Lore2: "will disable player"
+  Lore3: "rendering for you"
+ShowPlayers:
+  ItemMaterial: "LIME_DYE"
+  ItemName: "Enable Player Rendering"
+  Lore1: "Clicking this item"
+  Lore2: "will enable player"
+  Lore3: "rendering for you"
