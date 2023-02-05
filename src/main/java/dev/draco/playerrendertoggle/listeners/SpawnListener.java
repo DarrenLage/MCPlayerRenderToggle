@@ -13,7 +13,7 @@ public class SpawnListener implements Listener {
     private final renderToggleItem item;
 
     public SpawnListener(PlayerRenderToggle plugin) {
-        itemIndex = plugin.getConfig().getInt("itemIndex");
+        itemIndex = plugin.getConfig().getInt("ItemIndex");
         item = new renderToggleItem(plugin);
     }
 

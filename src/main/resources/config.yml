@@ -1,4 +1,7 @@
-itemIndex: 8
+ItemIndex: 8
+ItemCooldown: 3
+CooldownMessage: "You are attempting too much, please wait 3 seconds"
+CooldownMessageColor: "RED"
 HidePlayers:
   ItemMaterial: "RED_DYE"
   ItemName: "Disable Player Rendering"
