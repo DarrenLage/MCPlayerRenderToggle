@@ -3,6 +3,7 @@ package dev.draco.playerrendertoggle.listeners;
 import dev.draco.playerrendertoggle.PlayerRenderToggle;
 import dev.draco.playerrendertoggle.classes.ConfigMeta;
 import dev.draco.playerrendertoggle.classes.Cooldown;
+import dev.draco.playerrendertoggle.classes.PlayersHidingOthers;
 import dev.draco.playerrendertoggle.items.renderToggleItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,8 +27,9 @@ public class ClickListener implements Listener {
     private final Long cooldownMax;
     private final String cooldownMessage;
     private final String cooldownMessageColor;
+    private PlayersHidingOthers playersHidingOthersMap;
 
-    public ClickListener(PlayerRenderToggle plugin) {
+    public ClickListener(PlayerRenderToggle plugin, PlayersHidingOthers playersHidingOthers) {
         this.plugin = plugin;
         HidePlayer = new ConfigMeta().GetMeta(plugin, "HidePlayers");
         ShowPlayer = new ConfigMeta().GetMeta(plugin, "ShowPlayers");
@@ -35,6 +37,7 @@ public class ClickListener implements Listener {
         cooldownMax = (plugin.getConfig().getLong("ItemCooldown") * 1000);
         cooldownMessage = plugin.getConfig().getString("CooldownMessage");
         cooldownMessageColor = plugin.getConfig().getString("CooldownMessageColor");
+        playersHidingOthersMap = playersHidingOthers;
 
         if(item == null ){
             item = new renderToggleItem(plugin);
@@ -59,6 +62,9 @@ public class ClickListener implements Listener {
                                 p.hidePlayer(plugin, online); //hides all online players from p who is the one who clicked the item
                             }
 
+                            //Sets the player state to hide all players
+                            playersHidingOthersMap.AddPlayerToList(p.getUniqueId());
+
                             //Set Current Item to Red to indicate the toggle has taken effect
                             e.setCurrentItem(item.getItem(false));
                         }
@@ -74,6 +80,9 @@ public class ClickListener implements Listener {
                             for (Player online : Bukkit.getOnlinePlayers()) {
                                 p.showPlayer(plugin, online); //shows all online players from p who is the one who clicked the item
                             }
+
+                            //Sets the player state to not currently hide all players
+                            playersHidingOthersMap.RemovePlayerFromList(p.getUniqueId());
 
                             //Set Current Item to Green to indicate the toggle has taken effect
                             e.setCurrentItem(item.getItem(true));
@@ -98,6 +107,9 @@ public class ClickListener implements Listener {
                         p.hidePlayer(plugin, online); //hides all online players from p who is the one who clicked the item
                     }
 
+                    //Sets the player state to hide all players
+                    playersHidingOthersMap.AddPlayerToList(p.getUniqueId());
+
                     //Set Current Item to Red to indicate the toggle has taken effect
                     p.getInventory().setItemInMainHand(item.getItem(false));
                 }
@@ -110,6 +122,9 @@ public class ClickListener implements Listener {
                     for(Player online : Bukkit.getOnlinePlayers()){
                         p.showPlayer(plugin, online); //shows all online players from p who is the one who clicked the item
                     }
+
+                    //Sets the player state to not currently hide all players
+                    playersHidingOthersMap.RemovePlayerFromList(p.getUniqueId());
 
                     //Set Current Item to Green to indicate the toggle has taken effect
                     p.getInventory().setItemInMainHand(item.getItem(true));
